@@ -47,10 +47,15 @@ export function LoginForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} aria-label={mode === 'login' ? 'Log in' : 'Register'}>
+    <form
+      className="login-form"
+      onSubmit={handleSubmit}
+      aria-label={mode === 'login' ? 'Log in' : 'Register'}
+    >
       <input
         type="email"
         placeholder="email"
+        autoComplete="email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         required
@@ -58,16 +63,22 @@ export function LoginForm() {
       <input
         type="password"
         placeholder="password"
+        autoComplete={
+          mode === 'login'
+            ? 'current-password'
+            : 'new-password'
+        }
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         required
         minLength={8}
       />
-      <button type="submit" disabled={loading}>
+      <button type="submit" className="btn-primary" disabled={loading}>
         {mode === 'login' ? 'Log in' : 'Register'}
       </button>
       <button
         type="button"
+        className="btn-link"
         onClick={() => {
           setError(null);
           setMode(mode === 'login' ? 'register' : 'login');
