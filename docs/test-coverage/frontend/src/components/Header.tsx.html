@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/lib/session.ts</title>
+    <title>Code coverage report for src/components/Header.tsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/lib</a> session.ts</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/components</a> Header.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/16</span>
+                <span class='fraction'>0/21</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/16</span>
+                <span class='fraction'>0/21</span>
             </div>
         
             
@@ -86,51 +86,72 @@
 <a name='L21'></a><a href='#L21'>21</a>
 <a name='L22'></a><a href='#L22'>22</a>
 <a name='L23'></a><a href='#L23'>23</a>
-<a name='L24'></a><a href='#L24'>24</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >export const SESSION_COOKIE = 'zrp_session';<span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" ></span></span></span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >import { cookies } from 'next/headers';</span></span></span>
+import Link from 'next/link';
+import { decodeSessionEmail, SESSION_COOKIE } from '@/lib/session';
+import { PortalIcon } from './Icons';
+import { ThemeToggle } from './ThemeToggle';
+import { HeaderMenu } from './HeaderMenu';
 &nbsp;
-<span class="cstat-no" title="statement not covered" >export function backendUrl(path: string): string {</span>
-<span class="cstat-no" title="statement not covered" >  const base = process.env.BACKEND_URL ?? 'http://localhost:3001';</span>
-<span class="cstat-no" title="statement not covered" >  return `${base}${path}`;</span>
-<span class="cstat-no" title="statement not covered" >}</span>
+<span class="cstat-no" title="statement not covered" >export function Header() {</span>
+<span class="cstat-no" title="statement not covered" >  const token = cookies().get(SESSION_COOKIE)?.value;</span>
+<span class="cstat-no" title="statement not covered" >  const email = token ? decodeSessionEmail(token) : null;</span>
 &nbsp;
-/**
- * Display-only decode of the JWT payload (no signature verification —
- * the backend re-validates the token on every real API call; this is
- * only used to show the signed-in user's email in the header).
- */
-<span class="cstat-no" title="statement not covered" >export function decodeSessionEmail(token: string): string | null {</span>
-<span class="cstat-no" title="statement not covered" >  try {</span>
-<span class="cstat-no" title="statement not covered" >    const payload = token.split('.')[1];</span>
-<span class="cstat-no" title="statement not covered" >    if (!payload) return null;</span>
-<span class="cstat-no" title="statement not covered" >    const json = Buffer.from(payload, 'base64url').toString('utf8');</span>
-<span class="cstat-no" title="statement not covered" >    const data = JSON.parse(json) as { email?: string };</span>
-<span class="cstat-no" title="statement not covered" >    return data.email ?? null;</span>
-<span class="cstat-no" title="statement not covered" >  } catch {</span>
-<span class="cstat-no" title="statement not covered" >    return null;</span>
-<span class="cstat-no" title="statement not covered" >  }</span>
+<span class="cstat-no" title="statement not covered" >  return (</span>
+<span class="cstat-no" title="statement not covered" >    &lt;header className="app-header"&gt;</span>
+<span class="cstat-no" title="statement not covered" >      &lt;Link href="/" className="brand"&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;span className="brand-mark" aria-hidden&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;PortalIcon size={22} /&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;/span&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;span className="brand-word"&gt;</span>
+<span class="cstat-no" title="statement not covered" >          Rick&lt;span className="brand-accent"&gt;&amp;amp;&lt;/span&gt;Morty{' '}</span>
+<span class="cstat-no" title="statement not covered" >          &lt;span className="brand-sub"&gt;API&lt;/span&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;/span&gt;</span>
+<span class="cstat-no" title="statement not covered" >      &lt;/Link&gt;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      &lt;div className="header-actions"&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;ThemeToggle /&gt;</span>
+<span class="cstat-no" title="statement not covered" >        {email &amp;&amp; &lt;HeaderMenu email={email} /&gt;}</span>
+<span class="cstat-no" title="statement not covered" >      &lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >    &lt;/header&gt;</span>
+  );
 <span class="cstat-no" title="statement not covered" >}</span>
 &nbsp;</pre></td></tr></table></pre>
 
