@@ -14,6 +14,12 @@
 - `database` — TypeORM + Postgres wiring and checked-in migrations
   (`src/database/migrations`), run automatically on backend startup.
 
+Every route is documented via `@nestjs/swagger` (decorators on the DTOs and
+controllers) and served as interactive Swagger UI at `/docs`
+(`/docs-json` for the raw OpenAPI document), mounted in `main.ts` after the
+global prefix/versioning are set so the documented paths match the real
+`/api/v1/...` routes.
+
 **frontend/** — Next.js (App Router).
 
 - `/login` — email/password form (`LoginForm`), toggles between login and

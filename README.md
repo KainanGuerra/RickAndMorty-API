@@ -67,7 +67,13 @@ highlighting.
 
 ## API
 
-- `POST /api/v1/auth/register` — `{ email, password }`
+Interactive Swagger UI: http://localhost:3001/docs (raw OpenAPI JSON at
+`/docs-json`). Use "Authorize" with a token from `/api/v1/auth/login` to try
+the protected endpoint from the browser.
+
+- `POST /api/v1/auth/register` — `{ email, password }`. Password must be 8+
+  characters with at least one uppercase letter, one lowercase letter, one
+  digit, and one special character.
 - `POST /api/v1/auth/login` — `{ email, password }` → `{ accessToken }`
 - `GET /api/v1/episodes/:number/characters` — requires
   `Authorization: Bearer <accessToken>`. Query params: `sort` (`asc`|`desc`),
