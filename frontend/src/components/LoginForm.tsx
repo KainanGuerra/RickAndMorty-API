@@ -3,6 +3,7 @@
 import { useState, type FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import { useLocale } from '@/i18n/LocaleProvider';
+import { EyeIcon, EyeOffIcon } from './Icons';
 
 type Mode = 'login' | 'register';
 
@@ -12,6 +13,7 @@ export function LoginForm() {
   const [mode, setMode] = useState<Mode>('login');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -49,46 +51,59 @@ export function LoginForm() {
   }
 
   return (
-    <form
-      className="login-form"
-      onSubmit={handleSubmit}
-      aria-label={mode === 'login' ? t('logIn') : t('register')}
-    >
-      <input
-        type="email"
-        placeholder={t('emailPlaceholder')}
-        autoComplete="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        required
-      />
-      <input
-        type="password"
-        placeholder={t('passwordPlaceholder')}
-        autoComplete={
-          mode === 'login'
-            ? 'current-password'
-            : 'new-password'
-        }
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        required
-        minLength={8}
-      />
-      <button type="submit" className="btn-primary" disabled={loading}>
-        {mode === 'login' ? t('logIn') : t('register')}
-      </button>
-      <button
-        type="button"
-        className="btn-link"
-        onClick={() => {
-          setError(null);
-          setMode(mode === 'login' ? 'register' : 'login');
-        }}
+    <>
+      <h1>{mode === 'login' ? t('logIn') : t('register')}</h1>
+      <form
+        className="login-form"
+        onSubmit={handleSubmit}
+        aria-label={mode === 'login' ? t('logIn') : t('register')}
       >
-        {mode === 'login' ? t('needAnAccount') : t('haveAnAccount')}
-      </button>
-      {error && <p className="error">{error}</p>}
-    </form>
+        <input
+          type="email"
+          placeholder={t('emailPlaceholder')}
+          autoComplete="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <div className="password-field">
+          <input
+            type={showPassword ? 'text' : 'password'}
+            placeholder={t('passwordPlaceholder')}
+            autoComplete={
+              mode === 'login'
+                ? 'current-password'
+                : 'new-password'
+            }
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            minLength={8}
+          />
+          <button
+            type="button"
+            className="password-toggle"
+            onClick={() => setShowPassword((value) => !value)}
+            aria-label={showPassword ? t('hidePassword') : t('showPassword')}
+          >
+            {showPassword ? <EyeOffIcon size={16} /> : <EyeIcon size={16} />}
+          </button>
+        </div>
+        <button type="submit" className="btn-primary" disabled={loading}>
+          {mode === 'login' ? t('logIn') : t('register')}
+        </button>
+        <button
+          type="button"
+          className="btn-link"
+          onClick={() => {
+            setError(null);
+            setMode(mode === 'login' ? 'register' : 'login');
+          }}
+        >
+          {mode === 'login' ? t('needAnAccount') : t('haveAnAccount')}
+        </button>
+        {error && <p className="error">{error}</p>}
+      </form>
+    </>
   );
 }

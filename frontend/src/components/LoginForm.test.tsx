@@ -59,12 +59,18 @@ describe('LoginForm', () => {
     expect(push).not.toHaveBeenCalled();
   });
 
-  it('switches to register mode and posts to /api/auth/register', async () => {
+  it('switches to register mode — heading and submit button update, and posts to /api/auth/register', async () => {
     (fetch as ReturnType<typeof vi.fn>).mockResolvedValueOnce(jsonResponse({ id: '1' }));
     const user = userEvent.setup();
     renderWithProviders(<LoginForm />);
 
-    await user.click(screen.getByRole('button', { name: 'Need an account?' }));
+    expect(screen.getByRole('heading', { name: 'Log in' })).toBeInTheDocument();
+
+    await user.click(screen.getByRole('button', { name: "Don't have an account? Register" }));
+
+    expect(screen.getByRole('heading', { name: 'Register' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Already have an account? Log in' })).toBeInTheDocument();
+
     await user.type(screen.getByPlaceholderText('email'), 'new@example.com');
     await user.type(screen.getByPlaceholderText('password'), 'password123');
     await user.click(screen.getByRole('button', { name: 'Register' }));
@@ -76,5 +82,20 @@ describe('LoginForm', () => {
       );
     });
     expect(screen.getByText(/Account created/)).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Log in' })).toBeInTheDocument();
+  });
+
+  it('toggles the password field between hidden and visible', async () => {
+    const user = userEvent.setup();
+    renderWithProviders(<LoginForm />);
+
+    const passwordInput = screen.getByPlaceholderText('password');
+    expect(passwordInput).toHaveAttribute('type', 'password');
+
+    await user.click(screen.getByRole('button', { name: 'Show password' }));
+    expect(passwordInput).toHaveAttribute('type', 'text');
+
+    await user.click(screen.getByRole('button', { name: 'Hide password' }));
+    expect(passwordInput).toHaveAttribute('type', 'password');
   });
 });

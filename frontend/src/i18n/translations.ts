@@ -28,13 +28,14 @@ export interface TranslationKeys {
   footerRickAndMortyApi: string;
 
   // LoginForm / login page
-  loginHeading: string;
   emailPlaceholder: string;
   passwordPlaceholder: string;
   logIn: string;
   register: string;
   needAnAccount: string;
   haveAnAccount: string;
+  showPassword: string;
+  hidePassword: string;
   registerSuccess: string;
   somethingWentWrong: string;
   couldNotReachServer: string;
@@ -86,13 +87,14 @@ export const translations: Record<Locale, TranslationKeys> = {
     footerGitHub: 'GitHub',
     footerRickAndMortyApi: 'Rick and Morty API',
 
-    loginHeading: 'Log in',
     emailPlaceholder: 'email',
     passwordPlaceholder: 'password',
     logIn: 'Log in',
     register: 'Register',
-    needAnAccount: 'Need an account?',
-    haveAnAccount: 'Have an account?',
+    needAnAccount: "Don't have an account? Register",
+    haveAnAccount: 'Already have an account? Log in',
+    showPassword: 'Show password',
+    hidePassword: 'Hide password',
     registerSuccess: 'Account created — you can log in now.',
     somethingWentWrong: 'Something went wrong',
     couldNotReachServer: 'Could not reach the server',
@@ -139,13 +141,14 @@ export const translations: Record<Locale, TranslationKeys> = {
     footerGitHub: 'GitHub',
     footerRickAndMortyApi: 'Rick and Morty API',
 
-    loginHeading: 'Entrar',
     emailPlaceholder: 'email',
     passwordPlaceholder: 'senha',
     logIn: 'Entrar',
     register: 'Cadastrar',
-    needAnAccount: 'Não tem uma conta?',
-    haveAnAccount: 'Já tem uma conta?',
+    needAnAccount: 'Não tem uma conta? Cadastre-se',
+    haveAnAccount: 'Já tem uma conta? Entrar',
+    showPassword: 'Mostrar senha',
+    hidePassword: 'Ocultar senha',
     registerSuccess: 'Conta criada — você já pode entrar.',
     somethingWentWrong: 'Algo deu errado',
     couldNotReachServer: 'Não foi possível conectar ao servidor',
