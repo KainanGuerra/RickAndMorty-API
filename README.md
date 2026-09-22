@@ -10,27 +10,51 @@ coverage is generated.
 
 ## Prerequisites
 
-- **Docker Compose path**: Docker Engine + the `docker compose` plugin
-  (Docker Desktop on Mac/Windows already includes it).
+- **Either Docker option below**: Docker Engine + the `docker compose`
+  plugin (Docker Desktop on Mac/Windows already includes it). Nothing else —
+  no Node, no cloning the repo for Option 1.
 - **Local (no Docker) path**: Node.js 22+, npm, and a local Postgres 16
   instance (or run just `docker compose up postgres` for that piece).
-- Nothing else needs installing globally — no NestJS CLI, no Next CLI;
+  Nothing else needs installing globally — no NestJS CLI, no Next CLI;
   everything runs through each project's `npm` scripts.
 
-## Run it (Docker Compose)
+## Run it
+
+Two ways to run the full stack with Docker. Both expose the same ports:
+
+- Frontend: http://localhost:3000
+- Backend: http://localhost:3001/api/v1
+- Swagger UI: http://localhost:3001/docs
+- Postgres: localhost:5432
+
+The backend runs its database migrations automatically on startup. Once
+it's up, open the frontend, register an account, log in, then search an
+episode number (e.g. `1`).
+
+### Option 1 — prebuilt images from GHCR (no build, no clone required)
+
+Pulls the images built by CI (`.github/workflows/docker-publish.yml`) from
+`ghcr.io/kainanguerra/rickandmorty-api-{backend,frontend}`. Just grab
+[`docker-compose.ghcr.yml`](docker-compose.ghcr.yml) and an `.env` — you
+don't need the rest of the source:
+
+```bash
+curl -O https://raw.githubusercontent.com/KainanGuerra/RickAndMorty-API/master/docker-compose.ghcr.yml
+curl -O https://raw.githubusercontent.com/KainanGuerra/RickAndMorty-API/master/.env.example
+cp .env.example .env   # adjust JWT_SECRET etc. if you like
+docker compose -f docker-compose.ghcr.yml up -d
+```
+
+(Or, with the repo cloned, just `docker compose -f docker-compose.ghcr.yml up -d`
+from the repo root.) Pin a specific build instead of `latest` with
+`IMAGE_TAG=<git-sha> docker compose -f docker-compose.ghcr.yml up -d`.
+
+### Option 2 — build locally with Docker Compose
 
 ```bash
 cp .env.example .env   # adjust JWT_SECRET etc. if you like
 docker compose up --build
 ```
-
-- Frontend: http://localhost:3000
-- Backend: http://localhost:3001/api/v1
-- Postgres: localhost:5432
-
-The backend runs its database migrations automatically on startup. Open the
-frontend, register an account, log in, then search an episode number (e.g.
-`1`).
 
 ## Run it locally without Docker
 
@@ -82,5 +106,9 @@ the protected endpoint from the browser.
 ## CI / images
 
 `.github/workflows/docker-publish.yml` runs both test suites and, on push to
-`main`, builds and publishes `backend` and `frontend` images to GHCR
-(`ghcr.io/<owner>/<repo>-backend`, `ghcr.io/<owner>/<repo>-frontend`).
+`master`, builds and publishes `backend` and `frontend` images to GHCR
+(`ghcr.io/kainanguerra/rickandmorty-api-backend`,
+`ghcr.io/kainanguerra/rickandmorty-api-frontend`), tagged `:latest` and
+`:<commit-sha>`. GHCR packages are private by default — visit the package's
+settings on GitHub and set visibility to public for Option 1 above to work
+without `docker login`.
