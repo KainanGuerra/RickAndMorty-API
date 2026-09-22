@@ -18,7 +18,7 @@ async function bootstrap() {
   const swaggerDocument = SwaggerModule.createDocument(
     app,
     new DocumentBuilder()
-      .setTitle('ZRP API')
+      .setTitle('Rick and Morty API')
       .setDescription(
         'Look up every character that appears in a Rick and Morty episode.',
       )

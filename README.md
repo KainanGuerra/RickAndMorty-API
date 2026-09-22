@@ -1,4 +1,4 @@
-# ZRP Test
+# Rick and Morty API
 
 Look up every character that appears in a given Rick and Morty episode,
 sorted alphabetically. NestJS API + Next.js frontend, Postgres-backed,

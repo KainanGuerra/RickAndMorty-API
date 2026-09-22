@@ -37,7 +37,7 @@ describe('Swagger document', () => {
     const document = SwaggerModule.createDocument(
       app,
       new DocumentBuilder()
-        .setTitle('ZRP API')
+        .setTitle('Rick and Morty API')
         .setVersion('1.0')
         .addBearerAuth(
           { type: 'http', scheme: 'bearer', bearerFormat: 'JWT' },
