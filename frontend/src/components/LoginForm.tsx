@@ -3,6 +3,8 @@
 import { useState, type FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import { useLocale } from '@/i18n/LocaleProvider';
+import { translateApiError } from '@/lib/apiErrors';
+import { checkPassword } from '@/lib/password';
 import { EyeIcon, EyeOffIcon } from './Icons';
 
 type Mode = 'login' | 'register';
@@ -17,8 +19,23 @@ export function LoginForm() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
+  const passwordChecks = checkPassword(password);
+  const passwordRequirements = [
+    { key: 'passwordReqLength', met: passwordChecks.minLength },
+    { key: 'passwordReqUppercase', met: passwordChecks.hasUppercase },
+    { key: 'passwordReqLowercase', met: passwordChecks.hasLowercase },
+    { key: 'passwordReqDigit', met: passwordChecks.hasDigit },
+    { key: 'passwordReqSpecial', met: passwordChecks.hasSpecialChar },
+  ] as const;
+  const passwordStrong = mode === 'login' || passwordRequirements.every((r) => r.met);
+
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
+    if (!passwordStrong) {
+      setError(t('passwordPolicyError'));
+      return;
+    }
+
     setLoading(true);
     setError(null);
 
@@ -31,7 +48,7 @@ export function LoginForm() {
       const data = await response.json();
 
       if (!response.ok) {
-        setError(data.message ?? t('somethingWentWrong'));
+        setError(translateApiError(data.message, t, t('somethingWentWrong')));
         return;
       }
 
@@ -89,7 +106,22 @@ export function LoginForm() {
             {showPassword ? <EyeOffIcon size={16} /> : <EyeIcon size={16} />}
           </button>
         </div>
-        <button type="submit" className="btn-primary" disabled={loading}>
+
+        {mode === 'register' && (
+          <ul className="password-requirements">
+            {passwordRequirements.map(({ key, met }) => (
+              <li key={key} className={met ? 'met' : undefined}>
+                <span aria-hidden>{met ? '✓' : '○'}</span> {t(key)}
+              </li>
+            ))}
+          </ul>
+        )}
+
+        <button
+          type="submit"
+          className="btn-primary"
+          disabled={loading || (mode === 'register' && !passwordStrong)}
+        >
           {mode === 'login' ? t('logIn') : t('register')}
         </button>
         <button

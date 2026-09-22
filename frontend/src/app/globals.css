@@ -403,6 +403,11 @@ select {
 
 .error {
   color: var(--color-danger);
+  background: color-mix(in srgb, var(--color-danger) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-danger) 35%, transparent);
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 0.85rem;
 }
 
 /* Login page */
@@ -450,4 +455,25 @@ select {
 
 .password-toggle:hover {
   color: var(--color-text);
+}
+
+.password-requirements {
+  list-style: none;
+  margin: -4px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+}
+
+.password-requirements li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.password-requirements li.met {
+  color: var(--color-success);
 }

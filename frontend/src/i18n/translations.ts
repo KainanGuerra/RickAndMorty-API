@@ -9,6 +9,10 @@ interface CountParams {
   total: number;
 }
 
+interface EpisodeNotFoundParams {
+  number: string;
+}
+
 export interface TranslationKeys {
   // ThemeToggle
   switchToLightMode: string;
@@ -39,6 +43,15 @@ export interface TranslationKeys {
   registerSuccess: string;
   somethingWentWrong: string;
   couldNotReachServer: string;
+  invalidCredentials: string;
+  emailAlreadyRegistered: string;
+  invalidEmailFormat: string;
+  passwordPolicyError: string;
+  passwordReqLength: string;
+  passwordReqUppercase: string;
+  passwordReqLowercase: string;
+  passwordReqDigit: string;
+  passwordReqSpecial: string;
 
   // Sidebar
   sidebarTitle: string;
@@ -60,6 +73,7 @@ export interface TranslationKeys {
   // EpisodeSearch
   pageTitle: string;
   couldNotLoadCharacters: string;
+  episodeNotFoundError: (params: EpisodeNotFoundParams) => string;
 
   // EpisodeResults
   loading: string;
@@ -98,6 +112,16 @@ export const translations: Record<Locale, TranslationKeys> = {
     registerSuccess: 'Account created — you can log in now.',
     somethingWentWrong: 'Something went wrong',
     couldNotReachServer: 'Could not reach the server',
+    invalidCredentials: 'Invalid credentials',
+    emailAlreadyRegistered: 'Email is already registered',
+    invalidEmailFormat: 'Enter a valid email address',
+    passwordPolicyError:
+      'Password must be at least 8 characters and include an uppercase letter, a lowercase letter, a digit, and a special character',
+    passwordReqLength: 'At least 8 characters',
+    passwordReqUppercase: 'One uppercase letter',
+    passwordReqLowercase: 'One lowercase letter',
+    passwordReqDigit: 'One digit',
+    passwordReqSpecial: 'One special character',
 
     sidebarTitle: 'Search',
     episodeNumberLabel: 'Episode number',
@@ -117,6 +141,7 @@ export const translations: Record<Locale, TranslationKeys> = {
 
     pageTitle: 'Rick and Morty — episode characters',
     couldNotLoadCharacters: 'Could not load characters',
+    episodeNotFoundError: ({ number }) => `Episode ${number} was not found`,
 
     loading: 'Loading…',
     noCharactersFound: 'No characters found.',
@@ -152,6 +177,16 @@ export const translations: Record<Locale, TranslationKeys> = {
     registerSuccess: 'Conta criada — você já pode entrar.',
     somethingWentWrong: 'Algo deu errado',
     couldNotReachServer: 'Não foi possível conectar ao servidor',
+    invalidCredentials: 'Credenciais inválidas',
+    emailAlreadyRegistered: 'Este email já está cadastrado',
+    invalidEmailFormat: 'Informe um email válido',
+    passwordPolicyError:
+      'A senha deve ter pelo menos 8 caracteres e incluir uma letra maiúscula, uma letra minúscula, um dígito e um caractere especial',
+    passwordReqLength: 'Pelo menos 8 caracteres',
+    passwordReqUppercase: 'Uma letra maiúscula',
+    passwordReqLowercase: 'Uma letra minúscula',
+    passwordReqDigit: 'Um dígito',
+    passwordReqSpecial: 'Um caractere especial',
 
     sidebarTitle: 'Buscar',
     episodeNumberLabel: 'Número do episódio',
@@ -171,6 +206,7 @@ export const translations: Record<Locale, TranslationKeys> = {
 
     pageTitle: 'Rick and Morty — personagens por episódio',
     couldNotLoadCharacters: 'Não foi possível carregar os personagens',
+    episodeNotFoundError: ({ number }) => `Episódio ${number} não foi encontrado`,
 
     loading: 'Carregando…',
     noCharactersFound: 'Nenhum personagem encontrado.',

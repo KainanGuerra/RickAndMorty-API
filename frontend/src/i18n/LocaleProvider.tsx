@@ -5,7 +5,7 @@ import { translations, type Locale, type TranslationKeys } from './translations'
 
 export const LOCALE_STORAGE_KEY = 'rickandmorty-locale';
 
-type TFunction = <K extends keyof TranslationKeys>(
+export type TFunction = <K extends keyof TranslationKeys>(
   key: K,
   ...args: TranslationKeys[K] extends (params: infer P) => string ? [params: P] : []
 ) => string;

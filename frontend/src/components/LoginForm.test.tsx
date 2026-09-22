@@ -72,7 +72,7 @@ describe('LoginForm', () => {
     expect(screen.getByRole('button', { name: 'Already have an account? Log in' })).toBeInTheDocument();
 
     await user.type(screen.getByPlaceholderText('email'), 'new@example.com');
-    await user.type(screen.getByPlaceholderText('password'), 'password123');
+    await user.type(screen.getByPlaceholderText('password'), 'Password123!');
     await user.click(screen.getByRole('button', { name: 'Register' }));
 
     await waitFor(() => {
@@ -97,5 +97,42 @@ describe('LoginForm', () => {
 
     await user.click(screen.getByRole('button', { name: 'Hide password' }));
     expect(passwordInput).toHaveAttribute('type', 'password');
+  });
+
+  it('shows a live password-requirements checklist in register mode and blocks a weak submit', async () => {
+    const user = userEvent.setup();
+    renderWithProviders(<LoginForm />);
+
+    await user.click(screen.getByRole('button', { name: "Don't have an account? Register" }));
+
+    expect(screen.getByText('At least 8 characters')).toBeInTheDocument();
+    expect(screen.getByText('One uppercase letter')).toBeInTheDocument();
+    const submit = screen.getByRole('button', { name: 'Register' });
+    expect(submit).toBeDisabled();
+
+    await user.type(screen.getByPlaceholderText('email'), 'weak@example.com');
+    await user.type(screen.getByPlaceholderText('password'), 'weakpassword');
+    expect(submit).toBeDisabled();
+    expect(fetch).not.toHaveBeenCalled();
+
+    await user.type(screen.getByPlaceholderText('password'), 'W1!');
+    expect(submit).not.toBeDisabled();
+  });
+
+  it('translates a known backend error (email already registered)', async () => {
+    (fetch as ReturnType<typeof vi.fn>).mockResolvedValueOnce(
+      jsonResponse({ message: 'Email is already registered' }, false),
+    );
+    const user = userEvent.setup();
+    renderWithProviders(<LoginForm />);
+
+    await user.click(screen.getByRole('button', { name: "Don't have an account? Register" }));
+    await user.type(screen.getByPlaceholderText('email'), 'taken@example.com');
+    await user.type(screen.getByPlaceholderText('password'), 'Password123!');
+    await user.click(screen.getByRole('button', { name: 'Register' }));
+
+    await waitFor(() => {
+      expect(screen.getByText('Email is already registered')).toBeInTheDocument();
+    });
   });
 });

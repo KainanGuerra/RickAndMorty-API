@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useLocale } from '@/i18n/LocaleProvider';
+import { translateApiError } from '@/lib/apiErrors';
 import { Sidebar, type SortOrder } from './Sidebar';
 import { EpisodeResults } from './EpisodeResults';
 
@@ -58,7 +59,8 @@ export function EpisodeSearch() {
       const body: CharactersResponse | { message?: string } = await response.json();
 
       if (!response.ok) {
-        setError(('message' in body && body.message) || t('couldNotLoadCharacters'));
+        const message = 'message' in body ? body.message : undefined;
+        setError(translateApiError(message, t, t('couldNotLoadCharacters')));
         setCharacters(null);
         setTotal(0);
         return;
