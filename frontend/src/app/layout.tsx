@@ -1,13 +1,14 @@
 import type { Metadata } from 'next';
 import { ThemeProvider } from '@/theme/ThemeProvider';
 import { THEME_INIT_SCRIPT } from '@/theme/theme-init-script';
+import { LocaleProvider } from '@/i18n/LocaleProvider';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import '../theme/theme.css';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'ZRP — Rick and Morty Episode Characters',
+  title: 'Rick and Morty API — Episode Characters',
   description: 'Look up every character that appears in a Rick and Morty episode.',
 };
 
@@ -26,11 +27,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body>
         <ThemeProvider>
-          <div className="app-shell">
-            <Header />
-            <main className="app-main">{children}</main>
-            <Footer />
-          </div>
+          <LocaleProvider>
+            <div className="app-shell">
+              <Header />
+              <main className="app-main">{children}</main>
+              <Footer />
+            </div>
+          </LocaleProvider>
         </ThemeProvider>
       </body>
     </html>

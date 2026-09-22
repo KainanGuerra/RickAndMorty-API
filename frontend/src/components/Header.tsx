@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { decodeSessionEmail, SESSION_COOKIE } from '@/lib/session';
 import { PortalIcon } from './Icons';
 import { ThemeToggle } from './ThemeToggle';
+import { LocaleToggle } from './LocaleToggle';
 import { HeaderMenu } from './HeaderMenu';
 
 export function Header() {
@@ -22,6 +23,7 @@ export function Header() {
       </Link>
 
       <div className="header-actions">
+        <LocaleToggle />
         <ThemeToggle />
         {email && <HeaderMenu email={email} />}
       </div>

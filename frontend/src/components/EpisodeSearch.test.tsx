@@ -1,6 +1,7 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { renderWithProviders } from '@/test/render';
 import { EpisodeSearch } from './EpisodeSearch';
 
 const ascCharacters = [
@@ -28,7 +29,7 @@ describe('EpisodeSearch', () => {
     );
 
     const user = userEvent.setup();
-    render(<EpisodeSearch />);
+    renderWithProviders(<EpisodeSearch />);
 
     await user.type(screen.getByLabelText('episode number'), '1');
     await user.click(screen.getByRole('button', { name: 'Search' }));
@@ -49,7 +50,7 @@ describe('EpisodeSearch', () => {
     );
 
     const user = userEvent.setup();
-    render(<EpisodeSearch />);
+    renderWithProviders(<EpisodeSearch />);
 
     await user.type(screen.getByLabelText('episode number'), '1');
     await user.type(screen.getByLabelText('name filter'), 'rick');
@@ -66,7 +67,7 @@ describe('EpisodeSearch', () => {
       .mockResolvedValueOnce(jsonResponse({ data: descCharacters, total: 2, page: 1, limit: 10 }));
 
     const user = userEvent.setup();
-    render(<EpisodeSearch />);
+    renderWithProviders(<EpisodeSearch />);
 
     await user.type(screen.getByLabelText('episode number'), '1');
     await user.click(screen.getByRole('button', { name: 'Search' }));
@@ -88,7 +89,7 @@ describe('EpisodeSearch', () => {
       .mockResolvedValueOnce(jsonResponse({ data: descCharacters, total: 15, page: 2, limit: 10 }));
 
     const user = userEvent.setup();
-    render(<EpisodeSearch />);
+    renderWithProviders(<EpisodeSearch />);
 
     await user.type(screen.getByLabelText('episode number'), '1');
     await user.click(screen.getByRole('button', { name: 'Search' }));
@@ -111,7 +112,7 @@ describe('EpisodeSearch', () => {
     );
 
     const user = userEvent.setup();
-    render(<EpisodeSearch />);
+    renderWithProviders(<EpisodeSearch />);
 
     await user.type(screen.getByLabelText('episode number'), '999');
     await user.click(screen.getByRole('button', { name: 'Search' }));

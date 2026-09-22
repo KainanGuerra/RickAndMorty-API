@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useLocale } from '@/i18n/LocaleProvider';
 import { Sidebar, type SortOrder } from './Sidebar';
 import { EpisodeResults } from './EpisodeResults';
 
@@ -28,6 +29,7 @@ interface SearchParams {
 }
 
 export function EpisodeSearch() {
+  const { t } = useLocale();
   const [episode, setEpisode] = useState('');
   const [name, setName] = useState('');
   const [sort, setSort] = useState<SortOrder>('asc');
@@ -56,7 +58,7 @@ export function EpisodeSearch() {
       const body: CharactersResponse | { message?: string } = await response.json();
 
       if (!response.ok) {
-        setError(('message' in body && body.message) || 'Could not load characters');
+        setError(('message' in body && body.message) || t('couldNotLoadCharacters'));
         setCharacters(null);
         setTotal(0);
         return;
@@ -67,7 +69,7 @@ export function EpisodeSearch() {
       setTotal(success.total);
       setPage(success.page);
     } catch {
-      setError('Could not reach the server');
+      setError(t('couldNotReachServer'));
       setCharacters(null);
       setTotal(0);
     } finally {
@@ -103,7 +105,7 @@ export function EpisodeSearch() {
 
   return (
     <div className="page-content">
-      <h1 className="page-title">Rick and Morty — episode characters</h1>
+      <h1 className="page-title">{t('pageTitle')}</h1>
       <div className="search-shell">
         <Sidebar
           episode={episode}

@@ -1,6 +1,7 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
+import { renderWithProviders } from '@/test/render';
 import { EpisodeResults } from './EpisodeResults';
 
 const characters = [
@@ -9,7 +10,7 @@ const characters = [
 
 describe('EpisodeResults', () => {
   it('shows a prompt when no search has been made yet', () => {
-    render(
+    renderWithProviders(
       <EpisodeResults
         characters={null}
         error={null}
@@ -24,7 +25,7 @@ describe('EpisodeResults', () => {
   });
 
   it('shows an empty state when the search returns no characters', () => {
-    render(
+    renderWithProviders(
       <EpisodeResults
         characters={[]}
         error={null}
@@ -39,7 +40,7 @@ describe('EpisodeResults', () => {
   });
 
   it('does not render pagination when everything fits on one page', () => {
-    render(
+    renderWithProviders(
       <EpisodeResults
         characters={characters}
         error={null}
@@ -54,7 +55,7 @@ describe('EpisodeResults', () => {
   });
 
   it('disables Previous on the first page and Next on the last page', () => {
-    const { rerender } = render(
+    const { rerender } = renderWithProviders(
       <EpisodeResults
         characters={characters}
         error={null}
@@ -86,7 +87,7 @@ describe('EpisodeResults', () => {
   it('calls onPageChange with page + 1 / page - 1', async () => {
     const onPageChange = vi.fn();
     const user = userEvent.setup();
-    render(
+    renderWithProviders(
       <EpisodeResults
         characters={characters}
         error={null}
@@ -106,7 +107,7 @@ describe('EpisodeResults', () => {
   });
 
   it('shows the error message instead of results when set', () => {
-    render(
+    renderWithProviders(
       <EpisodeResults
         characters={null}
         error="Episode 999 was not found"

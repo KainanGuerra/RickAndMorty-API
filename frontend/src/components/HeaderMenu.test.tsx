@@ -1,6 +1,7 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { renderWithProviders } from '@/test/render';
 import { HeaderMenu } from './HeaderMenu';
 
 const push = vi.fn();
@@ -23,7 +24,7 @@ describe('HeaderMenu', () => {
 
   it('opens the dropdown on click and closes it on an outside click', async () => {
     const user = userEvent.setup();
-    render(
+    renderWithProviders(
       <div>
         <HeaderMenu email="person@example.com" />
         <button type="button">outside</button>
@@ -41,7 +42,7 @@ describe('HeaderMenu', () => {
 
   it('logs out and redirects to /login', async () => {
     const user = userEvent.setup();
-    render(<HeaderMenu email="person@example.com" />);
+    renderWithProviders(<HeaderMenu email="person@example.com" />);
 
     await user.click(screen.getByRole('button', { name: /person@example\.com/i }));
     await user.click(screen.getByRole('button', { name: /logout/i }));

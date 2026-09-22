@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useLocale } from '@/i18n/LocaleProvider';
 import { ExternalLinkIcon, LogOutIcon } from './Icons';
 
 export function HeaderMenu({ email }: { email: string }) {
@@ -9,6 +10,7 @@ export function HeaderMenu({ email }: { email: string }) {
   const [loggingOut, setLoggingOut] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const router = useRouter();
+  const { t } = useLocale();
 
   useEffect(() => {
     function onClickOutside(event: MouseEvent) {
@@ -55,7 +57,7 @@ export function HeaderMenu({ email }: { email: string }) {
             rel="noopener noreferrer"
             className="header-dropdown-link"
           >
-            API docs <ExternalLinkIcon />
+            {t('apiDocs')} <ExternalLinkIcon />
           </a>
           <button
             type="button"
@@ -63,7 +65,7 @@ export function HeaderMenu({ email }: { email: string }) {
             onClick={handleLogout}
             disabled={loggingOut}
           >
-            <LogOutIcon size={14} /> {loggingOut ? 'Logging out…' : 'Logout'}
+            <LogOutIcon size={14} /> {loggingOut ? t('loggingOut') : t('logout')}
           </button>
         </div>
       )}

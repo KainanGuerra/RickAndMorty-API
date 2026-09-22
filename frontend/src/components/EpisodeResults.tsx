@@ -1,3 +1,7 @@
+'use client';
+
+import { useLocale } from '@/i18n/LocaleProvider';
+
 interface Character {
   id: number;
   name: string;
@@ -25,6 +29,7 @@ export function EpisodeResults({
   total,
   onPageChange,
 }: EpisodeResultsProps) {
+  const { t } = useLocale();
   const totalPages = limit > 0 ? Math.max(1, Math.ceil(total / limit)) : 1;
   const hasResults = characters !== null;
 
@@ -36,17 +41,15 @@ export function EpisodeResults({
         </p>
       )}
 
-      {!error && loading && <p className="results-status">Loading…</p>}
+      {!error && loading && <p className="results-status">{t('loading')}</p>}
 
       {!error && !loading && hasResults && characters!.length === 0 && (
-        <p className="results-status">No characters found.</p>
+        <p className="results-status">{t('noCharactersFound')}</p>
       )}
 
       {!error && hasResults && characters!.length > 0 && (
         <>
-          <p className="results-count">
-            {total} character{total === 1 ? '' : 's'}
-          </p>
+          <p className="results-count">{t('resultsCount', { total })}</p>
           <ul className="character-grid">
             {characters!.map((character) => (
               <li key={character.id} className="character-card">
@@ -62,19 +65,17 @@ export function EpisodeResults({
           </ul>
 
           {totalPages > 1 && (
-            <nav className="pagination" aria-label="Pagination">
+            <nav className="pagination" aria-label={t('pagination')}>
               <button type="button" onClick={() => onPageChange(page - 1)} disabled={page <= 1}>
-                Previous
+                {t('previous')}
               </button>
-              <span className="pagination-status">
-                Page {page} of {totalPages}
-              </span>
+              <span className="pagination-status">{t('pageStatus', { page, totalPages })}</span>
               <button
                 type="button"
                 onClick={() => onPageChange(page + 1)}
                 disabled={page >= totalPages}
               >
-                Next
+                {t('next')}
               </button>
             </nav>
           )}
@@ -82,7 +83,7 @@ export function EpisodeResults({
       )}
 
       {!error && !hasResults && !loading && (
-        <p className="results-status">Enter an episode number to see its characters.</p>
+        <p className="results-status">{t('enterEpisodePrompt')}</p>
       )}
     </section>
   );

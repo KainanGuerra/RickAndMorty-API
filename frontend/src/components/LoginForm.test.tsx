@@ -1,6 +1,7 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { renderWithProviders } from '@/test/render';
 import { LoginForm } from './LoginForm';
 
 const push = vi.fn();
@@ -28,7 +29,7 @@ describe('LoginForm', () => {
   it('logs in and redirects home on success', async () => {
     (fetch as ReturnType<typeof vi.fn>).mockResolvedValueOnce(jsonResponse({ ok: true }));
     const user = userEvent.setup();
-    render(<LoginForm />);
+    renderWithProviders(<LoginForm />);
 
     await user.type(screen.getByPlaceholderText('email'), 'person@example.com');
     await user.type(screen.getByPlaceholderText('password'), 'password123');
@@ -46,7 +47,7 @@ describe('LoginForm', () => {
       jsonResponse({ message: 'Invalid credentials' }, false),
     );
     const user = userEvent.setup();
-    render(<LoginForm />);
+    renderWithProviders(<LoginForm />);
 
     await user.type(screen.getByPlaceholderText('email'), 'person@example.com');
     await user.type(screen.getByPlaceholderText('password'), 'wrong-password');
@@ -61,7 +62,7 @@ describe('LoginForm', () => {
   it('switches to register mode and posts to /api/auth/register', async () => {
     (fetch as ReturnType<typeof vi.fn>).mockResolvedValueOnce(jsonResponse({ id: '1' }));
     const user = userEvent.setup();
-    render(<LoginForm />);
+    renderWithProviders(<LoginForm />);
 
     await user.click(screen.getByRole('button', { name: 'Need an account?' }));
     await user.type(screen.getByPlaceholderText('email'), 'new@example.com');

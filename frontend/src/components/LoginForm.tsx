@@ -2,11 +2,13 @@
 
 import { useState, type FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
+import { useLocale } from '@/i18n/LocaleProvider';
 
 type Mode = 'login' | 'register';
 
 export function LoginForm() {
   const router = useRouter();
+  const { t } = useLocale();
   const [mode, setMode] = useState<Mode>('login');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -27,20 +29,20 @@ export function LoginForm() {
       const data = await response.json();
 
       if (!response.ok) {
-        setError(data.message ?? 'Something went wrong');
+        setError(data.message ?? t('somethingWentWrong'));
         return;
       }
 
       if (mode === 'register') {
         setMode('login');
-        setError('Account created — you can log in now.');
+        setError(t('registerSuccess'));
         return;
       }
 
       router.push('/');
       router.refresh();
     } catch {
-      setError('Could not reach the server');
+      setError(t('couldNotReachServer'));
     } finally {
       setLoading(false);
     }
@@ -50,11 +52,11 @@ export function LoginForm() {
     <form
       className="login-form"
       onSubmit={handleSubmit}
-      aria-label={mode === 'login' ? 'Log in' : 'Register'}
+      aria-label={mode === 'login' ? t('logIn') : t('register')}
     >
       <input
         type="email"
-        placeholder="email"
+        placeholder={t('emailPlaceholder')}
         autoComplete="email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
@@ -62,7 +64,7 @@ export function LoginForm() {
       />
       <input
         type="password"
-        placeholder="password"
+        placeholder={t('passwordPlaceholder')}
         autoComplete={
           mode === 'login'
             ? 'current-password'
@@ -74,7 +76,7 @@ export function LoginForm() {
         minLength={8}
       />
       <button type="submit" className="btn-primary" disabled={loading}>
-        {mode === 'login' ? 'Log in' : 'Register'}
+        {mode === 'login' ? t('logIn') : t('register')}
       </button>
       <button
         type="button"
@@ -84,7 +86,7 @@ export function LoginForm() {
           setMode(mode === 'login' ? 'register' : 'login');
         }}
       >
-        {mode === 'login' ? 'Need an account?' : 'Have an account?'}
+        {mode === 'login' ? t('needAnAccount') : t('haveAnAccount')}
       </button>
       {error && <p className="error">{error}</p>}
     </form>

@@ -1,6 +1,7 @@
 'use client';
 
 import type { FormEvent } from 'react';
+import { useLocale } from '@/i18n/LocaleProvider';
 
 export type SortOrder = 'asc' | 'desc';
 
@@ -29,6 +30,8 @@ export function Sidebar({
   loading,
   onSubmit,
 }: SidebarProps) {
+  const { t } = useLocale();
+
   function handleSubmit(event: FormEvent) {
     event.preventDefault();
     onSubmit();
@@ -37,47 +40,47 @@ export function Sidebar({
   return (
     <aside className="sidebar">
       <form className="sidebar-form" onSubmit={handleSubmit}>
-        <h2 className="sidebar-title">Search</h2>
+        <h2 className="sidebar-title">{t('sidebarTitle')}</h2>
 
         <label className="field">
-          <span className="field-label">Episode number</span>
+          <span className="field-label">{t('episodeNumberLabel')}</span>
           <input
-            aria-label="episode number"
+            aria-label={t('episodeNumberAriaLabel')}
             type="number"
             min={1}
-            placeholder="e.g. 1"
+            placeholder={t('episodeNumberPlaceholder')}
             value={episode}
             onChange={(e) => onEpisodeChange(e.target.value)}
           />
         </label>
 
         <label className="field">
-          <span className="field-label">Filter by name (contains)</span>
+          <span className="field-label">{t('nameFilterLabel')}</span>
           <input
-            aria-label="name filter"
+            aria-label={t('nameFilterAriaLabel')}
             type="text"
-            placeholder="e.g. rick"
+            placeholder={t('nameFilterPlaceholder')}
             value={name}
             onChange={(e) => onNameChange(e.target.value)}
           />
         </label>
 
         <label className="field">
-          <span className="field-label">Sort</span>
+          <span className="field-label">{t('sortLabel')}</span>
           <select
-            aria-label="sort order"
+            aria-label={t('sortAriaLabel')}
             value={sort}
             onChange={(e) => onSortChange(e.target.value as SortOrder)}
           >
-            <option value="asc">A → Z</option>
-            <option value="desc">Z → A</option>
+            <option value="asc">{t('sortAsc')}</option>
+            <option value="desc">{t('sortDesc')}</option>
           </select>
         </label>
 
         <label className="field">
-          <span className="field-label">Per page</span>
+          <span className="field-label">{t('perPageLabel')}</span>
           <select
-            aria-label="results per page"
+            aria-label={t('perPageAriaLabel')}
             value={limit}
             onChange={(e) => onLimitChange(Number(e.target.value))}
           >
@@ -89,7 +92,7 @@ export function Sidebar({
         </label>
 
         <button type="submit" className="btn-primary" disabled={loading || !episode}>
-          {loading ? 'Searching…' : 'Search'}
+          {loading ? t('searching') : t('search')}
         </button>
       </form>
     </aside>
