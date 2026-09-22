@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>94/94</span>
+                <span class='fraction'>96/96</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>94/94</span>
+                <span class='fraction'>96/96</span>
             </div>
         
             
@@ -244,7 +244,11 @@
 <a name='L179'></a><a href='#L179'>179</a>
 <a name='L180'></a><a href='#L180'>180</a>
 <a name='L181'></a><a href='#L181'>181</a>
-<a name='L182'></a><a href='#L182'>182</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L182'></a><a href='#L182'>182</a>
+<a name='L183'></a><a href='#L183'>183</a>
+<a name='L184'></a><a href='#L184'>184</a>
+<a name='L185'></a><a href='#L185'>185</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -342,26 +346,11 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -381,10 +370,27 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -455,13 +461,14 @@ export interface TranslationKeys {
   footerRickAndMortyApi: string;
 &nbsp;
   // LoginForm / login page
-  loginHeading: string;
   emailPlaceholder: string;
   passwordPlaceholder: string;
   logIn: string;
   register: string;
   needAnAccount: string;
   haveAnAccount: string;
+  showPassword: string;
+  hidePassword: string;
   registerSuccess: string;
   somethingWentWrong: string;
   couldNotReachServer: string;
@@ -513,13 +520,14 @@ export const translations: Record&lt;Locale, TranslationKeys&gt; = {
     footerGitHub: 'GitHub',
     footerRickAndMortyApi: 'Rick and Morty API',
 &nbsp;
-    loginHeading: 'Log in',
     emailPlaceholder: 'email',
     passwordPlaceholder: 'password',
     logIn: 'Log in',
     register: 'Register',
-    needAnAccount: 'Need an account?',
-    haveAnAccount: 'Have an account?',
+    needAnAccount: "Don't have an account? Register",
+    haveAnAccount: 'Already have an account? Log in',
+    showPassword: 'Show password',
+    hidePassword: 'Hide password',
     registerSuccess: 'Account created — you can log in now.',
     somethingWentWrong: 'Something went wrong',
     couldNotReachServer: 'Could not reach the server',
@@ -566,13 +574,14 @@ export const translations: Record&lt;Locale, TranslationKeys&gt; = {
     footerGitHub: 'GitHub',
     footerRickAndMortyApi: 'Rick and Morty API',
 &nbsp;
-    loginHeading: 'Entrar',
     emailPlaceholder: 'email',
     passwordPlaceholder: 'senha',
     logIn: 'Entrar',
     register: 'Cadastrar',
-    needAnAccount: 'Não tem uma conta?',
-    haveAnAccount: 'Já tem uma conta?',
+    needAnAccount: 'Não tem uma conta? Cadastre-se',
+    haveAnAccount: 'Já tem uma conta? Entrar',
+    showPassword: 'Mostrar senha',
+    hidePassword: 'Ocultar senha',
     registerSuccess: 'Conta criada — você já pode entrar.',
     somethingWentWrong: 'Algo deu errado',
     couldNotReachServer: 'Não foi possível conectar ao servidor',
@@ -613,7 +622,7 @@ export const translations: Record&lt;Locale, TranslationKeys&gt; = {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-09-22T00:00:44.075Z
+                at 2026-09-22T00:07:24.996Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
