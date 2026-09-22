@@ -3,7 +3,7 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from 'react';
 import { translations, type Locale, type TranslationKeys } from './translations';
 
-const LOCALE_STORAGE_KEY = 'zrp-locale';
+export const LOCALE_STORAGE_KEY = 'rickandmorty-locale';
 
 type TFunction = <K extends keyof TranslationKeys>(
   key: K,

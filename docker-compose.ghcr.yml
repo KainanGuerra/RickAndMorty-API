@@ -3,15 +3,15 @@ services:
     image: postgres:16-alpine
     restart: unless-stopped
     environment:
-      POSTGRES_USER: ${POSTGRES_USER:-zrp}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-zrp}
-      POSTGRES_DB: ${POSTGRES_DB:-zrp}
+      POSTGRES_USER: ${POSTGRES_USER:-rickandmorty}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-rickandmorty}
+      POSTGRES_DB: ${POSTGRES_DB:-rickandmorty}
     volumes:
       - postgres-data:/var/lib/postgresql/data
     ports:
       - '5432:5432'
     healthcheck:
-      test: ['CMD-SHELL', 'pg_isready -U ${POSTGRES_USER:-zrp}']
+      test: ['CMD-SHELL', 'pg_isready -U ${POSTGRES_USER:-rickandmorty}']
       interval: 5s
       timeout: 5s
       retries: 10
@@ -26,9 +26,9 @@ services:
       PORT: 3001
       DATABASE_HOST: postgres
       DATABASE_PORT: 5432
-      DATABASE_USER: ${POSTGRES_USER:-zrp}
-      DATABASE_PASSWORD: ${POSTGRES_PASSWORD:-zrp}
-      DATABASE_NAME: ${POSTGRES_DB:-zrp}
+      DATABASE_USER: ${POSTGRES_USER:-rickandmorty}
+      DATABASE_PASSWORD: ${POSTGRES_PASSWORD:-rickandmorty}
+      DATABASE_NAME: ${POSTGRES_DB:-rickandmorty}
       JWT_SECRET: ${JWT_SECRET:-change-me}
       JWT_EXPIRES_IN: ${JWT_EXPIRES_IN:-1h}
       RICK_AND_MORTY_API_URL: ${RICK_AND_MORTY_API_URL:-https://rickandmortyapi.com/api}

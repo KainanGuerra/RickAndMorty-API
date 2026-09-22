@@ -1,4 +1,4 @@
-export const SESSION_COOKIE = 'zrp_session';
+export const SESSION_COOKIE = 'rickandmorty_session';
 
 export function backendUrl(path: string): string {
   const base = process.env.BACKEND_URL ?? 'http://localhost:3001';

@@ -1,7 +1,7 @@
 {
-  "name": "zrp-backend",
+  "name": "rickandmorty-api-backend",
   "version": "1.0.0",
-  "description": "ZRP test backend (NestJS) — episode/character lookup API",
+  "description": "Rick and Morty API backend (NestJS) — episode/character lookup API",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {

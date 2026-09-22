@@ -2,10 +2,9 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { afterEach, describe, expect, it } from 'vitest';
 import { renderWithProviders } from '@/test/render';
+import { LOCALE_STORAGE_KEY } from '@/i18n/LocaleProvider';
 import { LocaleToggle } from './LocaleToggle';
 import { Sidebar } from './Sidebar';
-
-const LOCALE_STORAGE_KEY = 'zrp-locale';
 
 describe('LocaleToggle', () => {
   afterEach(() => {

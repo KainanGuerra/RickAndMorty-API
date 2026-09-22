@@ -1,7 +1,7 @@
 {
-  "name": "zrp-frontend",
+  "name": "rickandmorty-api-frontend",
   "version": "1.0.0",
-  "description": "ZRP test frontend (Next.js) — episode/character lookup UI",
+  "description": "Rick and Morty API frontend (Next.js) — episode/character lookup UI",
   "private": true,
   "scripts": {
     "dev": "next dev",

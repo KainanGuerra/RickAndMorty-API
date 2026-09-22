@@ -1,4 +1,4 @@
-# ZRP Test
+# Rick and Morty API
 
 ## Overview
 

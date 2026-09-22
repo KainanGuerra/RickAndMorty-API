@@ -1,4 +1,4 @@
-export const THEME_STORAGE_KEY = 'zrp-theme';
+export const THEME_STORAGE_KEY = 'rickandmorty-theme';
 
 export const THEME_INIT_SCRIPT = `
 (function () {
