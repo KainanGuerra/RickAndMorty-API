@@ -29,15 +29,27 @@ docker-compose.yml
 
 ### Backend (NestJS)
 
-- Modules: `auth`, `api` (episodes/characters), plus shared/core modules as needed.
-- Route versioning (e.g. `/api/v1/...`).
+- Modules: `auth` (register/login, JWT, strong-password policy), `episodes`
+  (the `api` module — JWT-guarded), `database` (TypeORM + Postgres).
+- Route versioning (`/api/v1/...`), global prefix `/api`.
 - List endpoints accept query parameters for pagination and filters — no
   pagination/filtering logic embedded in the URL path.
-- PostgreSQL as the datastore.
+- PostgreSQL as the datastore, backing both `users` and an `episode_cache`
+  table (repeat episode lookups skip the external API).
+- Swagger/OpenAPI docs for every route at `/docs`.
 
 ### Frontend (Next.js)
 
-- Single-page flow: episode input → submit → sorted character list.
+- Single-page flow: episode input → submit → sorted character list, plus a
+  filter/sort/pagination sidebar and a login/register page.
+- Light/dark theme and EN/PT i18n, both as React contexts persisted to
+  `localStorage` (`src/theme/`, `src/i18n/`).
+- Route Handlers under `app/api/*` hold the JWT server-side (httpOnly
+  cookie) — it never reaches client-side JS.
+
+See [`docs/architecture.md`](docs/architecture.md) for the full picture and
+[`docs/requirements.md`](docs/requirements.md) for what was required vs.
+delivered.
 
 ## Development
 
@@ -53,5 +65,6 @@ what's documented.
 
 ## Documentation
 
-`/docs` holds architecture notes and test-coverage output — keep both current
-as the modules and endpoints take shape.
+`/docs` holds architecture notes, the requirements traceability matrix, and
+test-coverage output — keep all three current as the modules and endpoints
+take shape.

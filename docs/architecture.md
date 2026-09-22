@@ -1,5 +1,21 @@
 # Architecture
 
+## System overview
+
+```mermaid
+flowchart LR
+    Browser["Browser"]
+    FE["Next.js frontend<br/>(Route Handlers hold the JWT<br/>server-side, never sent to the client)"]
+    BE["NestJS backend<br/>/api/v1, JWT-guarded"]
+    DB[("Postgres<br/>users / episode_cache")]
+    RAM["Rick and Morty API<br/>(external, public)"]
+
+    Browser -- "cookie-based session" --> FE
+    FE -- "Authorization: Bearer JWT" --> BE
+    BE --> DB
+    BE -- "cache miss only" --> RAM
+```
+
 ## Modules
 
 **backend/** — NestJS modular monolith, prefixed `/api`, URI-versioned
@@ -31,6 +47,13 @@ global prefix/versioning are set so the documented paths match the real
   `auth/logout` proxy directly, `episodes/[number]` attaches the
   `Authorization: Bearer` header from the cookie before calling the backend.
   The JWT never reaches client-side JavaScript.
+- Theme (`src/theme/`) and locale (`src/i18n/`) are both React contexts with
+  the same shape: state persisted to `localStorage`, read back into React
+  state after mount (hydration-safe — the server always renders the
+  default, the client corrects itself once mounted). `Header`, `Footer`,
+  `Sidebar`, `EpisodeResults`, and `LoginForm` all consume `useLocale()`;
+  dark/light is pure CSS custom properties switched via a `data-theme`
+  attribute on `<html>`.
 
 ## Request flow
 
@@ -56,10 +79,31 @@ databases, since both are small and owned by the same monolith:
 - `episode_cache` — a cache of episode → character-list lookups, so a
   repeated request for the same episode doesn't re-hit the external API.
 
+```mermaid
+erDiagram
+    users {
+        uuid id PK
+        varchar email UK
+        varchar passwordHash
+        timestamp createdAt
+    }
+    episode_cache {
+        uuid id PK
+        integer episodeNumber UK
+        jsonb characters
+        timestamp fetchedAt
+    }
+```
+
+The two tables have no foreign-key relationship — `episode_cache` isn't
+scoped per user, it's a shared cache of public Rick and Morty API data.
+
 ## Docker images
 
 Each project has its own multi-stage `Dockerfile`. `docker-compose.yml` at
-the repo root builds both locally by default. `.github/workflows/docker-publish.yml`
-additionally builds and pushes both images to GHCR
-(`ghcr.io/<owner>/<repo>-backend` and `-frontend`) on every push to `main`,
-after the test suite passes.
+the repo root builds both locally by default;
+[`docker-compose.ghcr.yml`](../docker-compose.ghcr.yml) runs the published
+images instead (no build). `.github/workflows/docker-publish.yml` runs both
+test suites on every push/PR and, on push to `master`, additionally builds
+and pushes both images to GHCR (`ghcr.io/kainanguerra/rickandmorty-api-backend`
+and `-frontend`), tagged `:latest` and `:<commit-sha>`.

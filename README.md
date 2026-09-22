@@ -4,9 +4,19 @@ Look up every character that appears in a given Rick and Morty episode,
 sorted alphabetically. NestJS API + Next.js frontend, Postgres-backed,
 JWT-protected, Dockerized.
 
-See [`docs/architecture.md`](docs/architecture.md) for how it fits together
-and [`docs/test-coverage/README.md`](docs/test-coverage/README.md) for how
-coverage is generated.
+See [`docs/architecture.md`](docs/architecture.md) for how it fits together,
+[`docs/requirements.md`](docs/requirements.md) for what was required vs.
+delivered, and [`docs/test-coverage/README.md`](docs/test-coverage/README.md)
+for current coverage numbers.
+
+## Highlights
+
+Beyond the core episode-lookup flow: JWT authentication (with a
+strong-password policy), Postgres-backed episode caching, pagination and
+name filtering, interactive Swagger/OpenAPI docs, a themed (light/dark)
+and bilingual (EN/PT) frontend, and CI that tests every push and publishes
+versioned Docker images to GHCR. Full breakdown in
+[`docs/requirements.md`](docs/requirements.md).
 
 ## Prerequisites
 
@@ -109,6 +119,5 @@ the protected endpoint from the browser.
 `master`, builds and publishes `backend` and `frontend` images to GHCR
 (`ghcr.io/kainanguerra/rickandmorty-api-backend`,
 `ghcr.io/kainanguerra/rickandmorty-api-frontend`), tagged `:latest` and
-`:<commit-sha>`. GHCR packages are private by default — visit the package's
-settings on GitHub and set visibility to public for Option 1 above to work
-without `docker login`.
+`:<commit-sha>`. Note: GHCR packages default to private, which would
+require `docker login` for Option 1 above to pull them.
