@@ -119,5 +119,5 @@ the protected endpoint from the browser.
 `master`, builds and publishes `backend` and `frontend` images to GHCR
 (`ghcr.io/kainanguerra/rickandmorty-api-backend`,
 `ghcr.io/kainanguerra/rickandmorty-api-frontend`), tagged `:latest` and
-`:<commit-sha>`. Note: GHCR packages default to private, which would
-require `docker login` for Option 1 above to pull them.
+`:<commit-sha>`. Both packages are public, so Option 1 above pulls without
+`docker login`.
