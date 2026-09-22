@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">98.68% </span>
+                <span class="strong">98.7% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>75/76</span>
+                <span class='fraction'>76/77</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">98.68% </span>
+                <span class="strong">98.7% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>75/76</span>
+                <span class='fraction'>76/77</span>
             </div>
         
             
@@ -155,7 +155,10 @@
 <a name='L90'></a><a href='#L90'>90</a>
 <a name='L91'></a><a href='#L91'>91</a>
 <a name='L92'></a><a href='#L92'>92</a>
-<a name='L93'></a><a href='#L93'>93</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -163,6 +166,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">97x</span>
 <span class="cline-any cline-yes">97x</span>
 <span class="cline-any cline-yes">97x</span>
 <span class="cline-any cline-yes">97x</span>
@@ -251,11 +255,13 @@
 &nbsp;
 import { useState, type FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
+import { useLocale } from '@/i18n/LocaleProvider';
 &nbsp;
 type Mode = 'login' | 'register';
 &nbsp;
 export function LoginForm() {
   const router = useRouter();
+  const { t } = useLocale();
   const [mode, setMode] = useState&lt;Mode&gt;('login');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -276,20 +282,20 @@ export function LoginForm() {
       const data = await response.json();
 &nbsp;
       if (!response.ok) {
-        setError(data.<span class="branch-0 cbranch-no" title="branch not covered" >message ?? 'Something went wrong')</span>;
+        setError(data.<span class="branch-0 cbranch-no" title="branch not covered" >message ?? t('somethingWentWrong'))</span>;
         return;
       }
 &nbsp;
       if (mode === 'register') {
         setMode('login');
-        setError('Account created — you can log in now.');
+        setError(t('registerSuccess'));
         return;
       }
 &nbsp;
       router.push('/');
       router.refresh();
 <span class="branch-0 cbranch-no" title="branch not covered" >    } catch {</span>
-<span class="cstat-no" title="statement not covered" >      setError('Could not reach the server');</span>
+<span class="cstat-no" title="statement not covered" >      setError(t('couldNotReachServer'));</span>
     } finally {
       setLoading(false);
     }
@@ -299,11 +305,11 @@ export function LoginForm() {
     &lt;form
       className="login-form"
       onSubmit={handleSubmit}
-      aria-label={mode === 'login' ? 'Log in' : 'Register'}
+      aria-label={mode === 'login' ? t('logIn') : t('register')}
     &gt;
       &lt;input
         type="email"
-        placeholder="email"
+        placeholder={t('emailPlaceholder')}
         autoComplete="email"
         value={email}
         onChange={(e) =&gt; setEmail(e.target.value)}
@@ -311,7 +317,7 @@ export function LoginForm() {
       /&gt;
       &lt;input
         type="password"
-        placeholder="password"
+        placeholder={t('passwordPlaceholder')}
         autoComplete={
           mode === 'login'
             ? 'current-password'
@@ -323,7 +329,7 @@ export function LoginForm() {
         minLength={8}
       /&gt;
       &lt;button type="submit" className="btn-primary" disabled={loading}&gt;
-        {mode === 'login' ? 'Log in' : 'Register'}
+        {mode === 'login' ? t('logIn') : t('register')}
       &lt;/button&gt;
       &lt;button
         type="button"
@@ -333,7 +339,7 @@ export function LoginForm() {
           setMode(mode === 'login' ? <span class="branch-0 cbranch-no" title="branch not covered" >'register' : 'login')</span>;
         }}
       &gt;
-        {mode === 'login' ? 'Need an account?' : 'Have an account?'}
+        {mode === 'login' ? t('needAnAccount') : t('haveAnAccount')}
       &lt;/button&gt;
       {error &amp;&amp; &lt;p className="error"&gt;{error}&lt;/p&gt;}
     &lt;/form&gt;
@@ -346,7 +352,7 @@ export function LoginForm() {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-09-21T23:51:31.696Z
+                at 2026-09-22T00:00:44.075Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
